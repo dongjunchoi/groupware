@@ -50,8 +50,7 @@
 		UPDATE pms SET sta_cd = 504 WHERE app_char = #{app_char}
 	</update>
 	
-	
-	
+
 	
 	
 	
@@ -72,7 +71,7 @@
 	AND APP_STA_CD =306
 	</select>
 	
-	<!-- 승인 대기중인 프로젝트 조회  작성자만 보일 수 있ㄷ록 -->
+	<!-- 승인 대기중인 프로젝트 조회  작성자만 보일 수 있도록 -->
 	<select id="selectAppPmsempList" resultType="pmsVo" parameterType="int">
 	select 
 	    app_char,
@@ -102,7 +101,8 @@
             FROM pms p , app a, emp e, dept t
         	WHERE p.APP_CHAR = a.APP_CHAR
     		AND e.emp_no = p.emp_no
-        	AND t.dept_no = e.dept_no)a
+        	AND t.dept_no = e.dept_no
+        	)a
          WHERE ROWNUM &lt; #{page} * #{pageSize})
 	WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 	</select>
@@ -112,7 +112,7 @@
 		FROM pms 
 	</select>
 	
-	<!-- 참여 중인 프로젝트 조회 - 사원  -->
+	<!-- 진행중인 프로젝트 조회 - 사원  -->
 	<select id="selectPmsemp"  resultType="pmsVo" parameterType="int">
 		SELECT p.pms_no, p.app_char ,a.emp_no , p.pms_nm ,p.cont, p.s_dt, p.e_dt ,p.est_time,p.prog, p.sta_cd ,a.reg_dt, e.ko_nm, t.dept_nm
 		FROM pms p , app a, emp e, dept t
@@ -124,19 +124,23 @@
 	
 	<!-- 참여중인 플젝번호  -->
 	<select id="selectPms" resultType="integer" parameterType="int">
-	   SELECT pms_no
-	    FROM pms_emp
+	    SELECT p.pms_no
+	    FROM pms_emp e ,pms p
 	    WHERE attend_emp_no = #{attend_emp_no}
-	    ORDER BY pms_no DESC
+        AND p.pms_no = e.pms_no 
+        AND sta_cd = 504
+	    ORDER BY pms_no DESC 
 	</select>
 	
 	
-	<!-- 프로젝트 구성원(이름) 조회 -->
+	<!-- 프로젝트 구성원 정보 조회 -->
 	<select id="pmsEmpList" parameterType="int" resultType="pmsVo">
-		SELECT p.*,e.ko_nm
-		FROM pms_emp p ,emp e
-		WHERE P.ATTEND_EMP_NO = e.emp_no
-		AND pms_no = #{pms_no}
+		SELECT d.dept_nm,e.ko_nm,c.cd_ko_nm, e.emp_id
+		FROM pms_emp p , dept d, emp e ,comm_cd c
+		WHERE d.dept_no = e.dept_no
+        AND e.emp_no = p.ATTEND_EMP_NO
+        AND e.po_cd = c.comm_no
+        AND pms_no =  #{pms_no}
 	</select>
 	
 	<!-- 일감 리스트 조회 -->
@@ -219,6 +223,8 @@
 		AND work_no = #{work_no}
 	</select>
 	
+	
+	<!-- 일감 등록  -->
 	<insert id="registWork" parameterType="pmsVo" >
 		INSERT INTO work (
 		    work_no,
@@ -249,9 +255,23 @@
 			)
 	</insert>
 	
+	<!-- 등록한 일감 조회 -->
 	<select id="selectWork" resultType="int">
 	SELECT Max(work_no)
     from work
+	</select>
+
+	<!-- 첨부파일 등록 -->
+	<insert id="registWorkFile" parameterType="workFileVo">
+		INSERT INTO work_file VALUES(#{work_no} ,#{file_no})
+	</insert>
+	
+	<!-- 첨부파일 확인 -->
+	<select id="workFileList" resultType="int" parameterType="int">
+		SELECT file_no
+		FROM work_file
+		WHERE work_no = #{work_no}
+		ORDER BY file_no
 	</select>
 	
 	<!-- 상태코드 출력하기  -->
@@ -260,12 +280,15 @@
 	 FROM comm_cd
 	 WHERE COMM_TP_CHAR = 'H015'
 	</select>
+	
+	<!-- 우선순위 출력하기  -->
 	<select id="selectComm_cdPri" resultType="commCdVo">
 	 SELECT comm_no, cd_ko_nm
 	 FROM comm_cd
 	 WHERE COMM_TP_CHAR = 'H010'
 	</select>
 
+	<!-- 일감 수정  -->
 	<update id="modifyWork" parameterType="pmsVo">
 	 UPDATE work SET
 	   work_nm       = #{work_nm},
@@ -279,6 +302,13 @@
 	 WHERE 
 	   work_no = #{work_no}
 	</update>	
+	
+	<!-- 진척도가 100이면 상태코드 완료로 변경 -->
+	<update id="modifyWorkProg" parameterType="int">
+	  UPDATE work SET sta_cd = 606
+  			WHERE work_no = #{work_no}
+	</update>
+	
 	
 	<delete id="deleteWork"  parameterType="int">
   	DELETE FROM work WHERE work_no = #{work_no}
@@ -316,9 +346,17 @@
 	</insert>
 	
 	<!-- 차트 리스트로 출력 -->
+	 		<!-- TO_CHAR(higher_work_no) higher_work_nm -->
 	<select id="selectListChart" parameterType="int" resultType="pmsVo">
-	 SELECT work_no, s_dt, e_dt,prog, work_nm
-	 FROM work
+	 SELECT work_no, 
+	 		s_dt,
+	 		e_dt,
+	 		TO_CHAR(s_dt, 'yyyy,MM,dd') s_dtS, 
+	 		TO_CHAR(e_dt, 'yyyy,MM,dd') e_dtS,
+	 		prog, 
+	 		work_nm, 
+	 		higher_work_no
+	 FROM work w
 			WHERE pms_no = #{pms_no}
 	</select>
 	
@@ -346,9 +384,4 @@
 		    WHERE HIGHER_WORK_NO = #{higher_work_no}
 	</select>
 	
-	<!-- 일감 첨부파일 등록 -->
-	
-	<insert id="registWorkFile" parameterType="workFileVo">
-		INSERT INTO work_file VALUES(#{work_no},#{file_no})
-	</insert>
 </mapper>

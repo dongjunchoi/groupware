@@ -192,7 +192,7 @@
                   and d.app_det_no = a.app_det_no
                   and e.emp_no = #{emp_no}
                   AND app_sta_cd = 306
-                  ORDER BY app_char DESC
+                  ORDER BY SUBSTR(app_char, 6) DESC
 		          )a
              WHERE ROWNUM &lt;= #{page} * #{pageSize}
 		     )
@@ -218,7 +218,7 @@
                   and d.app_det_no = a.app_det_no
                   and e.emp_no = #{emp_no}
                   AND app_sta_cd IN (301,303,304)
-                  ORDER BY app_char DESC
+                  ORDER BY SUBSTR(app_char, 6) DESC
 		          )a
              WHERE ROWNUM &lt;= #{page} * #{pageSize}
 		     )
@@ -244,7 +244,7 @@
                   and d.app_det_no = a.app_det_no
                   and e.emp_no = #{emp_no}
                   AND app_sta_cd = 307
-                  ORDER BY app_char DESC
+                  ORDER BY SUBSTR(app_char, 6) DESC
 		          )a
              WHERE ROWNUM &lt;= #{page} * #{pageSize}
 		     )

@@ -51,7 +51,7 @@
 	  <mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml"/>
 	  <mapper resource="kr/or/ddit/config/mybatis/mapper/popup.xml"/>
       <mapper resource="kr/or/ddit/config/mybatis/mapper/scd.xml"/>
-      <mapper resource="kr/or/ddit/config/mybatis/mapper/pms.xml"/>
+      <mapper resource="kr/or/ddit/config/mybatis/mapper/pms2.xml"/>
 	  <mapper resource="kr/or/ddit/config/mybatis/mapper/app.xml"/>
 	  <mapper resource="kr/or/ddit/config/mybatis/mapper/onoff.xml"/>
 	  <mapper resource="kr/or/ddit/config/mybatis/mapper/attfile.xml"/>

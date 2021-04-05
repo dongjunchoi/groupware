@@ -238,5 +238,27 @@ SELECT emp_no, emp_id ,ko_nm, eg_nm, dept_nm, day, attend_time, offwork_time, "D
     AND o.emp_no = #{emp_no}
 </select>
 
+	<select id="selectOnOffData" resultType="onVo" parameterType="int">
+		SELECT *
+		FROM
+		(SELECT ROWNUM rn, a.*
+		FROM
+		(SELECT e.emp_no emp_no ,e.emp_id emp_id, ko_nm, eg_nm, d.dept_nm dept_nm, cd_ko_nm,
+		        TO_CHAR(attend_time, 'hh24:mi') attend_time, TO_CHAR(offwork_time,'hh24:mi') offwork_time,
+		        TO_CHAR(attend_time, 'yyyy/mm/dd') day, TO_CHAR(attend_time, 'day') "date",
+		        CASE WHEN TO_CHAR(attend_time, 'hh24:mi:ss') > '09:00:00' THEN '지각' ELSE ' ' END late,
+		        TO_CHAR(offwork_time - TO_CHAR(attend_time, 'hh24')/24,'hh24') || '.' ||           
+		        TO_CHAR(offwork_time - TO_CHAR(attend_time, 'mi')/(24*60),'mi') work_time
+		FROM onoff o, emp e, dept d, comm_cd c
+		WHERE o.emp_no = e.emp_no
+		AND e.dept_no = d.dept_no
+		AND c.comm_no = e.po_cd
+		AND attend_time &lt;= TO_CHAR(sysdate, 'yyyymmdd')
+		AND o.emp_no = ${emp_no}
+		ORDER BY day , attend_time) a
+		WHERE ROWNUM &lt;= 1 * 5 )
+WHERE rn BETWEEN (1-1) * 5 + 1 AND 1 * 5
+	</select>
+
 
 </mapper>

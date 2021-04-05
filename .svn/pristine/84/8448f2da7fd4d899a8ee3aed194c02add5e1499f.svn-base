@@ -45,7 +45,7 @@
     	
     		
     		$.ajax({
-    			url: "${cp}/popup/insertPopUp",
+    			url: "${cp}/popup/modifyPopUp",
     			data: "s_time="+s_time+"&e_time="+e_time+
     					"&title="+title+"&cont="+ cont,
 				type: "post",
@@ -68,7 +68,7 @@
 </head>
 <body>
 <br>
-<h3 style="text-align: center;">팝업 등록</h3>
+<h3 style="text-align: center;">팝업 수정</h3>
 <br>
 <%-- <form action="${cp}/popup/insertPopUp" id="popUpfrm" method="post"> --%>
 <input type="hidden" name="popup_no" id="popup_no">

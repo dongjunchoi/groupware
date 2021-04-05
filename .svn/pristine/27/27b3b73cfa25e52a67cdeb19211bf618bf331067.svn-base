@@ -317,9 +317,9 @@
 	
 	<!-- 차트 리스트로 출력 -->
 	<select id="selectListChart" parameterType="int" resultType="pmsVo">
-	 SELECT work_no, s_dt, e_dt,prog, work_nm
-	 FROM work
-			WHERE pms_no = #{pms_no}
+		SELECT work_no, s_dt, e_dt,prog, work_nm , TO_CHAR(higher_work_no) higher_work_no
+	 	FROM work
+		WHERE pms_no = #{pms_no}
 	</select>
 	
 	<!-- 하위 일감 조회 -->

@@ -10,6 +10,7 @@
 		select * from board order by bor_no
 	</select>
 	
+
 	<!-- 사원 게시판 메인 화면 -->
 	<select id="selectEmpBoard" resultType="boardVo" parameterType="int">
 		SELECT distinct(bor_no) bor_no, bor_nm
@@ -102,38 +103,6 @@
 		SELECT bor_nm FROM board WHERE bor_no=#{bor_no}
 	</select>
 	
-<!-- 	<select id="selectFile" parameterType="attFileVo" resultType="attFileVo">
-		select * from att_file a, post_file p 
-		where a.file_no = p.file_no 
-		and post_no=#{post_no}
-	</select> -->
-	
-<!-- 	<select id="selectAttFileDownload" resultType="attFileVo" parameterType="attFileVo">
-		select * from att_file where file_no=#{file_no}
-	</select>
-	
-	<select id="selectFileDownload" resultType="boardPostFileVo" parameterType="int">
-		select * from post_file  where file_no=#{file_no}
-	</select>
-	 -->
-	 
-	<!-- <delete id="deleteAttFile" parameterType="AttFileVo">
-		delete att_file where file_no=#{file_no}		
-	</delete> -->
-	
-<!-- 	<select id="postListView" resultType="boardPostVo" parameterType="pageVo">
-		SELECT *
-		FROM
-		    (SELECT ROWNUM rn, a.*
-		     FROM (SELECT post_no, title, ko_nm, reg_dt, hits, del_cd 
-		    		 FROM post p, emp e
-                     WHERE e.emp_no = p.emp_no 
-		     		 AND bor_no=#{bor_no}
-		     		 ORDER BY post_no desc) a
-		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
-		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}	
-	</select>  -->
-	
 	<select id="selectPostCnt" resultType="int" parameterType="pageVo">
 		SELECT COUNT(*) cnt FROM post WHERE bor_no=#{bor_no}
 	</select>
@@ -188,26 +157,49 @@
 
 	<!-- 게시글 검색 -->
 	<select id="SearchPost" resultType="boardPostVo" parameterType="pageVo">
-		SELECT *
+		SELECT LPAD((' '), 8*(LEVEL-1)) || TITLE title, LEVEL boardLevel, b.*
 		FROM
 		    (SELECT ROWNUM rn, a.*
-		     FROM (SELECT title, e.ko_nm, e.emp_no emp_no, reg_dt, hit 
-		     FROM post p, emp e 
-		     WHERE e.emp_no = p.emp_no
-		 	 AND title LIKE '%' || #{keyword} || '%' ORDER BY post_no) a
-		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		     FROM 
+		     	(SELECT title, bor_no, ko_nm, post_no, e.emp_no, hits, reg_dt, del_cd,higher_post_no	
+		     	FROM post p, emp e
+		     	WHERE e.emp_no = p.emp_no
+		     	AND bor_no=#{bor_no}
+		 	 AND title LIKE '%' || #{keyword} || '%'
+		 	 ORDER BY post_no) a
+		     WHERE ROWNUM &lt;= #{page} * #{pageSize}) b
+		     
 		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+		START WITH higher_post_no IS NULL 
+		CONNECT BY PRIOR POST_NO = higher_post_no
+		ORDER SIBLINGS BY reg_dt DESC
+	</select>
+	
+	<select id="searchCnt" parameterType="pageVo" resultType="int">
+		SELECT count(*) FROM post 
+		WHERE bor_no=#{bor_no} and title LIKE '%' || #{keyword} || '%'
 	</select>
 	
 	<select id="SearchWriter" resultType="boardPostVo" parameterType="pageVo">
-		SELECT *
+		SELECT LPAD((' '), 8*(LEVEL-1)) || TITLE title, LEVEL boardLevel, b.*
 		FROM
 		    (SELECT ROWNUM rn, a.*
-		     FROM (SELECT title,ko_nm,reg_dt,hit 
+		     FROM (SELECT title, bor_no, ko_nm, post_no, e.emp_no, hits, reg_dt, del_cd,higher_post_no	
 		     FROM post p, emp e 
-		 	 WHERE emp_no LIKE '%' || #{keyword} || '%' ORDER BY post_no) a
-		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		 	 WHERE e.emp_no=p.emp_no AND e.ko_nm LIKE '%' || #{keyword} || '%' 
+		 	 AND bor_no=#{bor_no}
+		 	 ORDER BY post_no) a
+		     WHERE ROWNUM &lt;= #{page} * #{pageSize}) b
 		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+		START WITH higher_post_no IS NULL 
+		CONNECT BY PRIOR POST_NO = higher_post_no
+		ORDER SIBLINGS BY reg_dt DESC
+	</select>
+	
+	<select id="searchWCnt" parameterType="pageVo" resultType="int">
+		SELECT count(*) FROM post p, emp e
+		WHERE p.emp_no=e.emp_no 
+		AND bor_no=#{bor_no} and e.ko_nm LIKE '%' || #{keyword} || '%'
 	</select>
 	 
 	<!-- 공지사항 팝업 등록 -->

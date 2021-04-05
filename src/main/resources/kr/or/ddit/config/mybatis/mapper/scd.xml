@@ -8,17 +8,31 @@
   	   resultType : 한 행의 정보를 저장할 수 있는 클래스 타입을 명시 -->
  
   <!-- 전체 일정 조회(디폴트) -->
-  <select id="selectAll" resultType="scdVo"  parameterType="int"> 
+  <select id="selectAll" resultType="scdVo"  parameterType="scdVo"> 
    SELECT * 
    FROM scd
-   WHERE emp_no = #{emp_no}
+   WHERE emp_no = #{emp_no}  OR (dept_no = #{dept_no} AND scd_div_no = 2)
   </select>
   <!-- 일정 조회 개인일정인지:1, 사내일정인지:2 , 프로젝트일정인지:2 -->
   <select id="selectScd" resultType="scdVo" parameterType="scdVo">
   	SELECT * 
   	FROM scd
   	WHERE scd_div_no = #{scd_div_no}
-  	AND emp_no = #{emp_no}
+  	<choose>
+
+		<when test = "scd_div_no == 1">
+			AND emp_no = #{emp_no}
+		</when>
+		
+		<when test = "scd_div_no == 2">
+			AND dept_no = #{dept_no}
+		</when>
+		
+		<when test = "scd_div_no == 3">
+			AND emp_no = #{emp_no}
+		</when>
+		
+	</choose>
   </select>
   
   <!-- 일정 상세정보 조회  - 해당 일정 -->

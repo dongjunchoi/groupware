@@ -8,12 +8,12 @@
 	<insert id="registFile" parameterType="attFileVo">
 		INSERT INTO att_file VALUES(file_seq.nextVal,#{file_nm},#{file_route},SYSDATE,1,#{file_size})
 	</insert>
-	
+	<!-- 방금 등록한 파일번호받기 -->
 	<select id="maxFileNo" resultType="int">
 		SELECT MAX(file_no) 
 		FROM att_file
 	</select>
-
+	<!-- 파일 보여주기 -->
 	<select id="selectFile" resultType="attFileVo" parameterType="int">
 		SELECT *
 		FROM att_file

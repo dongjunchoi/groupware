@@ -473,4 +473,18 @@
 		ORDER BY v.vac_no
 	</select>
 	
+	<!-- 개인 연차 정보 -->
+	<select id="selectDetVacinfo" resultType="vacationVo" parameterType="int">
+	   SELECT NVL(SUM(used_vac), 0) used_vac,  
+		        CASE WHEN vac_cnt &gt; 13 THEN 0 ELSE vac_cnt END total_mon_vac, 
+		        CASE WHEN vac_cnt &lt; 13 THEN 0 ELSE vac_cnt END total_vac, 
+		        vac_cnt - NVL(SUM(used_vac), 0) remain_vac
+		FROM 
+		(SELECT e.emp_no emp_no, (v.e_dt - v.s_dt) + 1 used_vac, vac_cnt   
+		FROM emp e, vacation v 
+		WHERE e.emp_no = v.emp_no(+)
+        AND v.emp_no = #{emp_no}) 
+		GROUP BY emp_no, vac_cnt
+	</select>
+
 </mapper>
