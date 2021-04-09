@@ -128,7 +128,7 @@ public class EmpController {
 			if(dbUser.getPer_info_agr_cd() == 140) {
 				return "admin/personalInformation";
 			}else {
-				return "redirect:/test/main";
+				return "redirect:/test/main?emp_no="+dbUser.getEmp_no();
 			}
 			
 		}else {	
@@ -166,7 +166,7 @@ public class EmpController {
 		}else {
 			return "redirect:/empController/loginProcess";
 		}
-		
+	
 	}
 	 
 	//인사정보 리스트 , chart api

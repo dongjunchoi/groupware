@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#scd_div_no").on("change",function(){
 		var scd_div_no = $("#scd_div_no").val();
 		if(scd_div_no == ""){
-			location.href ="${cp}/scd/calendar?emp_no=${S_USER.emp_no}";
+			location.href ="${cp}/scd/calendar?emp_no=${S_USER.emp_no}&dept_no=${S_USER.dept_no}";
 			return false;
 		}else{
 			$("#scd_div_no2").val(scd_div_no);

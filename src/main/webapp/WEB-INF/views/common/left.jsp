@@ -68,7 +68,7 @@
 		                </li>
 		                <br>
 		                <li>
-		                    <a href="${cp}/scd/calendar?emp_no=${S_USER.emp_no}" title="Dashboard">
+		                    <a href="${cp}/scd/calendar?emp_no=${S_USER.emp_no}&dept_no=${S_USER.dept_no}" title="Dashboard">
 		                        <i class="fa fa-list-alt"></i> 일정관리
 		                    </a>
 		                </li>

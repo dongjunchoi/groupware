@@ -27,7 +27,7 @@
 	<input type="hidden" id="meet_no" name="meet_no">
 </form>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; 
 <input type="button" class="btn btn-info" id="empMsgList" value="화상회의 생성">
 <br>
 <br>

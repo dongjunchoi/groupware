@@ -182,7 +182,7 @@
 		                    (select ko_nm from emp where emp_no=W.ATTEND_EMP_NO) ko_nm
 		                FROM
 		                    work w
-			          WHERE pms_no = #{pms_no}
+			          WHERE pms_no = #{pms_no} AND (sta_cd = 606 OR sta_cd = 605)
 			          ORDER BY work_no DESC
 			          ) a
 			     )
@@ -309,10 +309,10 @@
   			WHERE work_no = #{work_no}
 	</update>
 	
-	
-	<delete id="deleteWork"  parameterType="int">
-  	DELETE FROM work WHERE work_no = #{work_no}
-	</delete>
+	<!--  삭제 UPDATE문으로 상태코드 607 삭제로 변경 -->
+	<update id="deleteWork"  parameterType="int">
+  		UPDATE work SET sta_cd = 607 WHERE work_no = #{work_no}
+	</update>
 	
 	<!-- 하위 일감 등록 -->
 	<insert id="registLowerWork" parameterType="pmsVo" >
@@ -357,7 +357,7 @@
 	 		work_nm, 
 	 		higher_work_no
 	 FROM work w
-			WHERE pms_no = #{pms_no}
+			WHERE pms_no = #{pms_no} AND (sta_cd = 606 OR sta_cd = 605)
 	</select>
 	
 	<!-- 하위 일감 조회 -->

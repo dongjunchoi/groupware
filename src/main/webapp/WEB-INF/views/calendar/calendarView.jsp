@@ -92,7 +92,7 @@
 	<input type="hidden" name="e_dt" value="${scdVo.e_dt}"/>
 	<input type="hidden" name="plc" value="${scdVo.plc}"/>
 	<input type="hidden" name="title" value="${scdVo.title}"/>
-	<input type="hidden" name="cont" value="${scdVo.cont}"/>
+	<input type="hidden" name="cont" value='${scdVo.cont}'>
 	<input type="hidden" name="scd_no"  id="scd_no"value="${scdVo.scd_no}"/>
 	<input type="hidden" name="emp_no" value="${S_USER.emp_no}"/>
 </form>

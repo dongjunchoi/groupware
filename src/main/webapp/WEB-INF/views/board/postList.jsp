@@ -165,8 +165,8 @@
 				
 			</div>
 			<div style="text-align: center;">
-			<div class="footer" style="position: absolute; left: 0;bottom: 0;width: 100%; padding: 15px 0; text-align: center;">
-				<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+			<div class="footer" style="position: absolute; left: 80px; bottom: 120px;width: 100%; padding: 15px 0; text-align: center;">
+				<div class="dataTables_paginate paging_simple_numbers" id="example_paginate" >
 					<ul class="pagination">
 		
 					

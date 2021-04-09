@@ -226,7 +226,7 @@ $(function() {
 <div class="panel panel-default" style="height: 700px;">
 <div id="appSelect">
 </div>
-<div id="appTable" class="panel panel-default">
+<div id="appTable" class="panel panel-default" style="height: 600px;">
 </div>
 <div style="float: right;" >
 	<button type="button" id="registAppDraft" class="btn btn-primary btn-3d">일반문서 등록</button>

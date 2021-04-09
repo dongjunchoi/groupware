@@ -312,7 +312,7 @@ public class MsgController {
 	// 보낸 쪽지함
 	@RequestMapping(path="pagingSentMsgAjaxHtml", method = RequestMethod.GET)
 	public String pagingSentMsgAjaxHtml(PageVo pageVo,Model model) {
-		
+		pageVo.setPageSize(9);
 	    model.addAllAttributes(msgService.sentMsgList(pageVo));
 	    model.addAttribute("msgKind", "보낸쪽지함");
 		return "msg/pagingSentMsgAjaxHtml";
@@ -321,7 +321,7 @@ public class MsgController {
 	// 임시저장 쪽지함
 	@RequestMapping(path="pagingTempMsgAjaxHtml", method = RequestMethod.GET)
 	public String pagingTempMsgAjaxHtml(PageVo pageVo,Model model) {
-		
+		pageVo.setPageSize(9);
 	    model.addAllAttributes(msgService.tempMsgList(pageVo));
 	    model.addAttribute("msgKind", "임시저장함");
 		return "msg/pagingTempMsgAjaxHtml";
@@ -329,7 +329,7 @@ public class MsgController {
 	// 휴지통
 	@RequestMapping(path="pagingDeleteMsgAjaxHtml", method = RequestMethod.GET)
 	public String pagingDeleteMsgAjaxHtml(PageVo pageVo,Model model) {
-		
+		pageVo.setPageSize(9);
 	    model.addAllAttributes(msgService.deleteMsgList(pageVo));
 	    model.addAttribute("msgKind", "휴지통");
 		return "msg/pagingDeleteMsgAjaxHtml";
@@ -338,7 +338,7 @@ public class MsgController {
 	// 쪽지함 정보리스트
 	@RequestMapping(path="pagingMsgBoxMsgAjaxHtml", method = RequestMethod.GET)
 	public String pagingMsgBoxMsgAjaxHtml(PageVo pageVo,String msg_box_nm,Model model) {
-		
+		pageVo.setPageSize(9);
 	    model.addAllAttributes(msgService.selectMsgBoxView(pageVo));
 	    model.addAttribute("msgKind", msg_box_nm);
 		return "msg/pagingMsgBoxMsgAjaxHtml";

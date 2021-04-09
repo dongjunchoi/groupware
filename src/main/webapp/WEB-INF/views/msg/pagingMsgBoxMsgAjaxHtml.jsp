@@ -14,7 +14,7 @@
 <!-- 			</form> -->
 		</h4>
 	</header>
-	<div class="panel-body minimal" style="width: 100%">
+	<div class="panel-body minimal" style="width: 100%; height: 650px;">
 		
 		<div class="table-responsive pull-left" style="width: 100%">
 			<table class="table table-inbox table-hover" style="width: 100%">

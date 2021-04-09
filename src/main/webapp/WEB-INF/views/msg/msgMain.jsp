@@ -8,7 +8,7 @@
 <script>
 	$(function() {
 		msgSideAjaxHtml();
-		pagingRecMsgAjaxHtml(1, 10);
+		pagingRecMsgAjaxHtml(1, 9);
 		
 		$("#inbox-wrapper").on("click",".rec_msg_no",function(){
  			

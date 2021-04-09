@@ -85,65 +85,6 @@ $(function(){
         }
       };
 
-//     google.charts.load('current', {'packages':['gantt'], 'language': 'ko'});
-//     google.charts.setOnLoadCallback(drawChart);
-
-//     function daysToMilliseconds(days) {
-//         return days * 24 * 60 * 60 * 1000;
-//       }
-    
-//     function drawChart() {
-
-//       var data = new google.visualization.DataTable();
-//       data.addColumn('string', 'Task ID');
-//       data.addColumn('string', 'Task Name');
-//       data.addColumn('string', 'Resource');
-//       data.addColumn('date', 'Start Date');
-//       data.addColumn('date', 'End Date');
-//       data.addColumn('number', 'Duration');
-//       data.addColumn('number', 'Percent Complete');
-//       data.addColumn('string', 'Dependencies');
-
-//     	 <c:forEach items="${pmsChartList}" var="pmsChartList" varStatus="status">
-//     	 <c:if test="${pmsChartList.higher_work_nm}== null">
-// 		      	data.addRows([
-		      		
-// 			    	         <c:if test="${status.count > 1}">
-// 				    			,
-// 				    		 </c:if>
-// 			    	 		 ['${pmsChartList.work_nm}', '${pmsChartList.work_nm}', 'winter',
-// 			    	         new Date("${pmsChartList.s_dtS}"),
-// 			    	         new Date("${pmsChartList.e_dtS}"),
-// 					         null,
-// 			//     	         new Date(<fmt:formatDate value="${pmsChartList.e_dt}" pattern="yyyy,MM,dd"/>+1), 
-// 			    	          ${pmsChartList.prog}, '${pmsChartList.higher_work_nm}']
-					    	 
-// 				 ]);
-//       	 </c:if>
-// 		      	data.addRows([
-		      		
-// 						         <c:if test="${status.count > 1}">
-// 					   			,
-// 					   		 </c:if>
-// 						 		 ['${pmsChartList.work_nm}', '${pmsChartList.work_nm}', 'winter',
-// 						         new Date("${pmsChartList.s_dtS}"),
-// 						         new Date("${pmsChartList.e_dtS}"),
-// 			    	         	 daysToMilliseconds(3),
-// 					//     	         new Date(<fmt:formatDate value="${pmsChartList.e_dt}" pattern="yyyy,MM,dd"/>+1), 
-// 						          ${pmsChartList.prog}, '${pmsChartList.higher_work_nm}']
-			    	 
-			
-// 			      ]);
-			      	 
-//     	 		 </c:forEach>
-
-//       var options = {
-//         height: 600,
-//         gantt: {
-//           trackHeight: 30
-//         }
-//       };
-
       var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
     
       chart.draw(data, options);

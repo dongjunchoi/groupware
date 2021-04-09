@@ -6,6 +6,7 @@
 <br>
 <h1 style="text-align: center;">진행중 결재 문서함</h1><br>
 <table class="table table-hover" cellspacing="0" width="100%" aria-describedby="example_info"	style="width: 100%;">
+<thead>
 	<tr>
 		<th>문서번호</th>
 		<th>구분</th>
@@ -13,7 +14,7 @@
 		<th>작성자</th>
 		<th>작성일자</th>
 	</tr>
-	
+</thead>
 	<c:forEach items="${appList}" var="app">
 		<tr class="appDetailView" data-app_char="${app.app_char}">
 			<td>${app.app_char}</td>

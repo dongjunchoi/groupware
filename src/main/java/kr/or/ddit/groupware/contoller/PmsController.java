@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.groupware.model.AttFileVo;
@@ -306,14 +307,14 @@ public class PmsController {
 //		return "redirect:/pmsworkDetail?pms_no="+pms_no+"&work_no="+work_no;
 		return "redirect:/pms/pmsView?pms_no="+pms_no;
 	}
-	/*일감 삭제*/
+	/*일감 삭제 첨부파일 삭제 후 */ 
 		@RequestMapping(path="deleteWork",method=RequestMethod.POST)
-		public String deleteWork(int pms_no , int work_no,Model model) {
+		public String deleteWork(int pms_no , int work_no,  RedirectAttributes ra ,Model model) {
 			
-			
+			PmsVo pmsVo = new PmsVo();
 			int deleteCnt = pmsService.deleteWork(work_no);
 			
-			
+			ra.addAttribute("pms_no", pmsVo.getPms_no());
 			return "redirect:/pms/pmsView?pms_no="+pms_no;
 	}
 	/*하위일감 등록 form 참여 사원번호 프로젝트 번호 일감번호==>상위 일감번호등록  */

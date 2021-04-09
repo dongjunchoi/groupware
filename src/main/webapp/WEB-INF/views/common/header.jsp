@@ -4,7 +4,7 @@
 	
             <!--logo start-->
             <div class="brand">
-                <a href="${cp}/test/main" class="logo"><span>DDIT</span></a>
+                <a href="${cp}/test/main?emp_no=${S_USER.emp_no}" class="logo"><span>DDIT</span></a>
             </div>
             <!--logo end-->
             <div class="toggle-navigation toggle-left">
