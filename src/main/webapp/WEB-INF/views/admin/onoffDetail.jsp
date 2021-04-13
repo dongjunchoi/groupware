@@ -39,6 +39,16 @@
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- bar chart script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	
+	<!-- Include fusioncharts core library -->
+	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+	<!-- Include fusion theme -->
+	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+	<!-- bar chart -->
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -139,7 +149,7 @@
 					<h3 class="panel-title">근태상세조회 (${onoffVo.dept_nm }부서 &nbsp; -
 						&nbsp; ${onoffVo.ko_nm })</h3>
 				</div>
-				<div class="panel-body" style="height: 600px;">
+				<div class="panel-body" style="height: 700px;">
 					<div class="panel-body">
 						<div role="grid" id="example_wrapper"
 							class="dataTables_wrapper form-inline no-footer">
@@ -177,6 +187,9 @@
 								</div>
 							</div>
 							
+							<div class="col-md-12"
+								style="height: 550px; min-width: 1000px;">
+							
 							<table id="example"
 								class="table table-hover"
 								cellspacing="0" width="100%" aria-describedby="example_info"
@@ -199,6 +212,8 @@
 								<tbody id="onoffTbody">
 								</tbody>
 							</table>
+							</div>
+							
 							<div class="row">
 								<!-- 								<div class="col-xs-6"></div> -->
 								<div style="text-align: center;">
@@ -223,76 +238,65 @@
 
 
 
-<!-- donut chart Start -->
+<!-- bar chart Start -->
 
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Donut Chart</h3>
-					<div class="actions pull-right">
-						<i class="fa fa-chevron-down"></i> <i class="fa fa-times"></i>
-					</div>
-				</div>
 				<div class="panel-body">
-					<div id="donutchart" style="width: 1000px; height: 500px; float: left;">
-					
-					</div>
+					<label style="margin-left : 375px; font-size :1.7em;">${onoffVo.ko_nm}님 근태그래프</label> 
+								<br><br><br>
+							
+						<div id="chart-container">FusionCharts XT will load here!</div>
+						</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 <script type="text/javascript">
-google.charts.load("current", { 
-packages : [ "corechart" ] 
- 	}); 
- 	google.charts.setOnLoadCallback(drawChart); 
 
- 	function draw() { 
- 		google.charts.load("current", { 
- 			packages : [ "corechart" ] 
- 		}); 
- 		google.charts.setOnLoadCallback(drawChart); 
- 	} 
-
- 	function drawChart() { 
-
- 		if ($('#test').is(':checked') == true) { 
- 			var data = google.visualization.arrayToDataTable([ 
- 					[ 'Task', 'Hours per Day' ],  
- 					[ 'Work', 11 ],  
- 					[ 'Eat', 2 ], 
- 					[ 'Commute', 2 ],  
- 					[ 'Watch TV', 2 ],  
- 					[ 'Sleep', 7 ] ]); 
- 			var options = { 
- 				title : '개인근태', 
- 				pieHole : 0.4, 
- 			}; 
- 		} else { 
- 			var data = google.visualization.arrayToDataTable([ 
- 					[ 'Task', 'Hours per Day' ],  
- 					[ '123', 20 ],  
- 					[ '456', 3 ], 
- 					[ '76e', 2 ],  
- 					[ 'Wztch TV', 2 ],  
- 					[ 'Sleep', 7 ] ]); 
- 			var options = { 
- 				title : '개인근태', 
- 				pieHole : 0.4, 
- 			}; 
- 		} 
-
- 		var chart = new google.visualization.PieChart(document 
- 				.getElementById('donutchart')); 
- 		chart.draw(data, options); 
- 	} 
+// Colunm Chart Start 
+const chartData = [  
+	<c:forEach items="${OnOffDataList}" var="onoff" varStatus="status">
+		<c:if test="${status.index > 0 }">
+			,
+		</c:if>
+			{
+				"label" : "${onoff.date}",
+ 			     "value" : "${onoff.work_time }",
+ 			     "tooltext" : "${onoff.day }, {br} ${onoff.work_hour }"
+			}
+	</c:forEach>	
+];		
+//STEP 3 - Chart Configurations
+const chartConfig = {
+type: 'column2d',
+renderAt: 'chart-container',
+width: '100%',
+height: '600',
+dataFormat: 'json',
+dataSource: {
+    // Chart Configuration
+    "chart": {
+        "xAxisName": "최근 7일간 근무시간",
+        "numberSuffix": "h",
+        "theme": "fusion"
+        },
+    // Chart Data
+    "data" : chartData
+	}
+};
+FusionCharts.ready(function(){
+var fusioncharts = new FusionCharts(chartConfig);
+fusioncharts.render();
+});
+ 
 	
 
  </script> 
 
-<!-- donut chart End -->
+<!-- bar chart End -->
 
 
 

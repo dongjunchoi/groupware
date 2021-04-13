@@ -24,6 +24,11 @@
 	
 	<!-- bar chart script -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	
+	<!-- Include fusioncharts core library -->
+	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+	<!-- Include fusion theme -->
+	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 
 	<!-- bar chart -->
 
@@ -33,10 +38,6 @@
 	font-size: 2.5em;
 	text-align: center;
 	}
-.workday {
-	margin-left:205px;
-}
-
 </style>
 
 <script type="text/javascript">
@@ -617,6 +618,7 @@
 									</tbody>
 								</table>
 							</div>
+							
 							<div class="row">
 								<!-- 								<div class="col-xs-6"></div> -->
 								<div style="text-align: center;">
@@ -645,55 +647,67 @@
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-						
-							<div id="bar chart"
-								style="width: 800px; float: left;">
-							</div>
-							<div style="text-align:center; font-size:1.5em;">
-								<span>${S_USER.ko_nm }님 근로시간(h)</span>
-							</div>
-							<br>
-							<div style="float:left; font-size:1.3em; padding-left:135px;">
-								
-								<span>${first.day }</span>
-								<span class="workday">${second.day }</span>
-								<span class="workday">${third.day }</span>
-								<span class="workday">${forth.day }</span>
-								<span class="workday">${fifth.day }</span>	
-								
-							</div>
+							<label style="margin-left : 700px; font-size :1.2em;">${S_USER.ko_nm}님 근태그래프</label> 
+								<br><br><br>
 							
-							<canvas id="bar-chart" width="1700" height="500"></canvas>
+						<div id="chart-container">FusionCharts XT will load here!</div>
 						</div>
 		
 					</div>
 				</div>
 			</div>
 		
-			<script type="text/javascript">
-				// Bar chart
-				new Chart(document.getElementById("bar-chart"), {
-				    type: 'bar',
-				    data: {
-				      labels: ["${first.date}", "${second.date}", "${third.date}", "${forth.date}", "${fifth.date}"],
-				      datasets: [
-				        {
-				          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-				          data: [${first.work_time}, ${second.work_time}, ${third.work_time}, ${forth.work_time}, ${fifth.work_time}]
-				          
-				        }
-				      ]
-				    },
-				    options: {
-				      legend: { display: false },
-				      title: {
-				        display: true
-				      }
-				    }
-				});
+		<script type="text/javascript">
+		 // Colunm Chart Start 
+		    const chartData = [  
+				<c:forEach items="${OnOffDataList}" var="onoff" varStatus="status">
+					<c:if test="${status.index > 0 }">
+						,
+					</c:if>
+						{
+							"label" : "${onoff.date}",
+			 			     "value" : "${onoff.work_time }",
+			 			     "tooltext" : "${onoff.day }, {br} ${onoff.work_hour }"
+						}
+				</c:forEach>	
+		    ];		
+		    //STEP 3 - Chart Configurations
+		    const chartConfig = {
+		    type: 'column2d',
+		    renderAt: 'chart-container',
+		    width: '100%',
+		    height: '600',
+		    dataFormat: 'json',
+		    dataSource: {
+		        // Chart Configuration
+		        "chart": {
+		            "xAxisName": "최근 7일간 근무시간",
+		            "numberSuffix": "h",
+		            "theme": "fusion"
+		            },
+		        // Chart Data
+		        "data" : chartData
+		    	}
+		    };
+		    FusionCharts.ready(function(){
+		    var fusioncharts = new FusionCharts(chartConfig);
+		    fusioncharts.render();
+		    });
 				
- 		</script> 
-	
-		<!-- bar Chart End -->
+		</script>
+		<!-- Column Chart End -->
 	</c:if>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	

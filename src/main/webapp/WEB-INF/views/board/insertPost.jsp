@@ -34,6 +34,28 @@
     		height: 370
     		
     	})
+    	
+    	$("#insertBorad").on("click", function() {
+			var title = $("#title").val();
+			var select = $("#selectBoard").val();
+			var cont = $("#summernote").val();
+			
+			if(title==""){
+				alert("제목을 입력하세요");
+				return false;
+			}
+			if(select==""){
+				alert("등록하려는 게시판을 선택해주세요");
+				return false;
+			}
+			if(cont==""){
+				alert("내용을 입력하세요");
+				return false;
+			}
+			
+			$("#insertBoardFrm").submit();
+			
+		})
 	})
 	
 </script>
@@ -48,7 +70,7 @@
 				<h3>게시글 등록</h3>
 			<br><br>
 		
-			<form action="${cp}/board/insertPost" method="post" enctype="multipart/form-data">
+			<form action="${cp}/board/insertPost" id="insertBoardFrm" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="post_no" value="${post_no}">
 				<%-- <input type="hidden" name="bor_no" value="${bor_no}"> --%>			
 				<input type="hidden" name="emp_no" value="${S_USER.emp_no}">				
@@ -67,8 +89,8 @@
 						<tr>
 						 	<th colspan="2" style="text-align: center; height: 30px;  background-color: #D8D8D8;">게시판</th>
 						 	<td colspan="8" style= "height:100%">
-						 	<select name="bor_no" style= "height:100%">
-								<option selected="selected">게시판을 선택하세요</option>
+						 	<select id="selectBoard" name="bor_no" style= "height:100%">
+								<option value=""  selected="selected">게시판을 선택하세요</option>
 								<c:forEach items="${boardList}" var="board">
 									<c:choose>
 										<c:when test="${(board.bor_no==-1||board.bor_no==51) && S_USER.emp_no != 0}">
@@ -93,7 +115,7 @@
 					</table>
 					</div>
 					<br>
-						 <button type="submit" class="btn btn-primary" value="저장" style="float: right;">저장</button>
+						 <button type="button" class="btn btn-primary" id="insertBorad" value="저장" style="float: right;">저장</button>
 					</form>
 				</div>
 									

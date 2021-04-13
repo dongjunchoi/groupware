@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.ddit.groupware.model.OnOffVo;
 import kr.or.ddit.groupware.service.OnOffService;
-
+ 
 @RequestMapping("onoffController")
 @Controller
 public class OnoffController {
-	
+	 
 	private static final Logger logger = LoggerFactory.getLogger(OnoffController.class);
 
 	@Resource(name="onoffService")
@@ -52,7 +52,7 @@ public class OnoffController {
 				model.addAttribute("attendTime", onVo.getAttend_time());				
 			} catch (Exception e) {
 				model.addAttribute("empStatus", onoffService.selectEmpWorkSta(emp_no).getReal_wk_cd());
-				model.addAttribute("hi", "-");
+				
 			}
 		}else {
 			model.addAttribute("attendTime", onVo.getAttend_time());

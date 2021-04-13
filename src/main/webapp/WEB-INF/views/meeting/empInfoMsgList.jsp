@@ -59,7 +59,7 @@
 				success : function(data) {
 					if(data.cnt!=0){
 						alert("회의가 생성 되었습니다");
-						location.href = "https://192.168.0.121:44300";
+						location.href = "https://192.168.0.135:44300";
 						//window.self.close();
 					}else{
 						alert("실패!");

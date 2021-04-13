@@ -47,81 +47,85 @@
 	margin-right: 20%;
 }
 </style>
-<div>
-	<h1>일정 수정페이지</h1>
+<div class="col-md-12">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">일정 수정페이지</h3>
+			<div class="actions pull-right"></div>
+		</div>
+		<form action="/scd/modifyCalendar" method="post" id="frm"
+			class="form-horizontal form-border">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">일정분류</label>
+				<div class="col-sm-2">
+					<select class=" col-md-8" name="scd_div_no" id="scd_div_no">
+						<option value="1">개인</option>
+						<option value="2">사내</option>
+					</select>
+				</div>
+				<label class="col-sm-2 control-label">일정유형</label>
+				<div class="col-sm-2">
+					<select class=" col-md-8" name="sta_cd" id="sta_cd">
+						<option value="400" selected="selected">출장</option>
+						<option value="401">휴가</option>
+						<option value="402">휴일</option>
+						<option value="403">업무</option>
+						<option value="404">프로젝트</option>
+						<option value="405">미팅</option>
+						<option value="406">개인</option>
+						<option value="407">기타</option>
+					</select> <input type="hidden" id="emp_no" name="emp_no"
+						value="${S_USER.emp_no}"> <input type="hidden"
+						id="dept_no" name="dept_no" value="${S_USER.dept_no}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">시작일자</label>
+				<div class="col-sm-3">
+					<input type="date" id="s_dt" name="s_dt2"
+						value='<fmt:formatDate value="${scdVo.s_dt}" pattern="yyyy-MM-dd"/>'
+						class="form-control">
+				</div>
+				<label class="col-sm-1 control-label">종료일자</label>
+				<div class="col-sm-3">
+					<input type="date" id="e_dt" name="e_dt2"
+						value='<fmt:formatDate value="${scdVo.e_dt}" pattern="yyyy-MM-dd"/>'
+						class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">장소</label>
+				<div class="col-sm-7">
+					<input type="text" id="plc" name="plc" value="${scdVo.plc}"
+						class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">제목</label>
+				<div class="col-sm-7">
+					<input type="text" id="title" name="title" value="${scdVo.title}"
+						class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">내용</label>
+				<div class="col-sm-7">
+					<textarea id="summernote" name="cont" style="height: 100%;">${scdVo.cont}</textarea>
+					<!-- 			<textarea id="cont" name="cont" class="form-control"></textarea> -->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input type="hidden" id="emp_no" name="emp_no"
+					value="${S_USER.emp_no}"> <input type="hidden" id="scd_no"
+					name="scd_no" value="${scdVo.scd_no}"> <input type="hidden"
+					id="dept_no" name="dept_no" value="${S_USER.dept_no}">
+				<button type="submit" id="submit" class="btn btn-success btn-square">저장</button>
+			</div>
+		</form>
+	</div>
 </div>
-<form action="/scd/modifyCalendar" method="post" id="frm"
-	class="form-horizontal form-border">
-	<div class="form-group">
-		<label class="col-sm-3 control-label">일정분류</label>
-		<div class="col-sm-2">
-			<select class=" col-md-8" name="scd_div_no" id="scd_div_no">
-				<option value="1">개인</option>
-				<option value="2">사내</option>
-			</select>
-		</div>
-		<label class="col-sm-2 control-label">일정유형</label>
-		<div class="col-sm-2">
-			<select class=" col-md-8" name="sta_cd" id="sta_cd">
-				<option value="400" selected="selected">출장</option>
-				<option value="401">휴가</option>
-				<option value="402">휴일</option>
-				<option value="403">업무</option>
-				<option value="404">프로젝트</option>
-				<option value="405">미팅</option>
-				<option value="406">개인</option>
-				<option value="407">기타</option>
-			</select> <input type="hidden" id="emp_no" name="emp_no"
-				value="${S_USER.emp_no}"> <input type="hidden" id="dept_no"
-				name="dept_no" value="${S_USER.dept_no}">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label">시작일자</label>
-		<div class="col-sm-3">
-			<input type="date" id="s_dt" name="s_dt2"
-				value='<fmt:formatDate value="${scdVo.s_dt}" pattern="yyyy-MM-dd"/>'
-				class="form-control">
-		</div>
-		<label class="col-sm-1 control-label">종료일자</label>
-		<div class="col-sm-3">
-			<input type="date" id="e_dt" name="e_dt2"
-				value='<fmt:formatDate value="${scdVo.e_dt}" pattern="yyyy-MM-dd"/>'
-				class="form-control">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label">장소</label>
-		<div class="col-sm-7">
-			<input type="text" id="plc" name="plc" value="${scdVo.plc}"
-				class="form-control">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label">제목</label>
-		<div class="col-sm-7">
-			<input type="text" id="title" name="title" value="${scdVo.title}"
-				class="form-control">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label">내용</label>
-		<div class="col-sm-7">
-			<textarea id="summernote" name="cont" style="height: 100%;">${scdVo.cont}</textarea>
-			<!-- 			<textarea id="cont" name="cont" class="form-control"></textarea> -->
-		</div>
-	</div>
-
-	<div class="form-group">
-		<input type="hidden" id="emp_no" name="emp_no"
-			value="${S_USER.emp_no}"> <input type="hidden" id="scd_no"
-			name="scd_no" value="${scdVo.scd_no}"> <input type="hidden"
-			id="dept_no" name="dept_no" value="${S_USER.dept_no}">
-		<button type="submit" id="submit" class="btn btn-success btn-square">저장</button>
-	</div>
-
-</form>

@@ -240,47 +240,12 @@ $(function(){
 		<div class="panel-heading">
 			<h3 class="panel-title">간트차트</h3>
 		</div>
-		<div class="panel-body" style="display: block; height: 600px;">
+		<div class="panel-body" style="display: block; min-height: 600px;">
 			<form class="form-horizontal" role="form">
-				<div style="min-height: 450px; overflow:auto;">
+				<div style="min-height: 500px; overflow:auto;">
 					<div id="chart_div" style="height:600px; "></div>
 				</div>
 			</form>
-			
-			
-			
-			
-			<div class="row">
-				<div style="text-align: center;">
-					<div class="dataTables_paginate paging_simple_numbers"
-						id="example_paginate">
-						<ul class="pagination">
-							<li class="paginate_button previous"><a
-								href="${cp }/pms/pmsView?page=1&pageSize=${pageVo.pageSize}&pms_no=${pms_no}">Previous</a></li>
-							<c:forEach begin="1" end="${pagination}" var="i">
-								<c:choose>
-									<c:when test="${pageVo.page==i}">
-										<li class="paginate_button active"><a
-											href="${cp }/pms/pmsView?page=${pageVo.page }&pageSize=${pageVo.pageSize}&pms_no=${pms_no}">${i}</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="paginate_button " aria-controls="example"
-											tabindex="0"><a
-											href="${cp }/pms/pmsView?page=${i }&pageSize=${pageVo.pageSize}&pms_no=${pms_no}">${i}</a></li>
-									</c:otherwise>
-								</c:choose>
-
-							</c:forEach>
-							<li class="paginate_button next" aria-controls="example"
-								tabindex="0" id="example_next"><a
-								href="${cp }/pms/pmsView?page=${pagination}&pageSize=${pageVo.pageSize}&pms_no=${pms_no}">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			
-			
-			
 		</div>
 	</div>
 </div>

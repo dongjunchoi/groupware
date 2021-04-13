@@ -32,7 +32,7 @@
     <script src="${cp}/assets/plugins/morris/js/morris.min.js"></script>
     <script src="${cp}/assets/plugins/morris/js/raphael.2.1.0.min.js"></script>
     <!-- Vector Map  -->
-<%--     <script src="${cp}/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script> --%>
+    <script src="${cp}/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="${cp}/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
     <!-- ToDo List  -->
     <script src="${cp}/assets/plugins/todo/js/todos.js"></script>

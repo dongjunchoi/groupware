@@ -129,7 +129,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">연차상세조회 (${empVo.ko_nm }님)</h3>
 				</div>
-				<div class="panel-body" style="height: 600px;">
+				<div class="panel-body" style="height: 700px;">
 					<div class="panel-body">
 						<div role="grid" id="example_wrapper"
 							class="dataTables_wrapper form-inline no-footer">
@@ -150,6 +150,10 @@
 											</span>
 								</div>
 							</div>
+							
+							<div class="col-md-12"
+								style="height: 550px; min-width: 1000px;">
+								
 							<table id="example"	class="table table-striped table-bordered dataTable no-footer" cellspacing="0" width="100%" aria-describedby="example_info"	style="width: 100%;">
 								<thead>
 									<tr role="row">
@@ -165,6 +169,8 @@
 								<tbody id="onoffTbody">
 								</tbody>
 							</table>
+							</div>
+							
 							<div class="row">
 <!-- 								<div class="col-xs-6"></div> -->
 								<div style="text-align: center;">
@@ -184,95 +190,8 @@
 			
 
 	</div>
-
-
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Donut Chart</h3>
-					<div class="actions pull-right">
-						<i class="fa fa-chevron-down"></i> <i class="fa fa-times"></i>
-					</div>
-				</div>
-				<div class="panel-body">
-					<div id="donutchart" style="width: 1000px; height: 500px; float: left;"></div>
-					test0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="test" class="js-switch" checked onchange="draw()" data-switchery="true" style="display: none;"><br><br>
-					test1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="test" class="js-switch" checked onchange="draw1()" data-switchery="true" style="display: none;"><br><br>
-					test2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="test" class="js-switch" checked onchange="draw2()" data-switchery="true" style="display: none;"><br><br>
-					test3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="test" class="js-switch" checked onchange="draw3()" data-switchery="true" style="display: none;">
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- 		</section> -->
 	<!-- 	</section> -->
 </div>
-<!-- basic Modal -->
-	<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
-	aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
-                </div>
-                <div class="modal-body">
-                    <p>One fine body…</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- end basic Modal -->
-
-
-
-<script type="text/javascript">
-	google.charts.load("current", {
-		packages : [ "corechart" ]
-	});
-	google.charts.setOnLoadCallback(drawChart);
-
-	function draw() {
-		google.charts.load("current", {
-			packages : [ "corechart" ]
-		});
-		google.charts.setOnLoadCallback(drawChart);
-	}
-
-	function drawChart() {
-
-		if ($('#test').is(':checked') == true) {
-			var data = google.visualization.arrayToDataTable([
-					[ 'Task', 'Hours per Day' ], [ 'Work', 11 ], [ 'Eat', 2 ],
-					[ 'Commute', 2 ], [ 'Watch TV', 2 ], [ 'Sleep', 7 ] ]);
-			var options = {
-				title : '기본',
-				pieHole : 0.4,
-			};
-		} else {
-			var data = google.visualization.arrayToDataTable([
-					[ 'Task', 'Hours per Day' ], [ '123', 20 ], [ '456', 3 ],
-					[ '76e', 2 ], [ 'Wztch TV', 2 ], [ 'Sleep', 7 ] ]);
-			var options = {
-				title : '부서',
-				pieHole : 0.4,
-			};
-		}
-
-		var chart = new google.visualization.PieChart(document
-				.getElementById('donutchart'));
-		chart.draw(data, options);
-	}
-	
-
-</script>
 
 
 

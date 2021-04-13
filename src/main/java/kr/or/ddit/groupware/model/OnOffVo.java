@@ -14,11 +14,12 @@ public class OnOffVo {
 	private String late;
 	private String cd_ko_nm;
 	private String work_time;
+	private String work_hour;
 	
 	public OnOffVo() {}
 
 	public OnOffVo(int emp_no, String emp_id, String ko_nm, String eg_nm, String dept_nm, String day, String date,
-			String attend_time, String offwork_time, String late, String cd_ko_nm, String work_time) {
+			String attend_time, String offwork_time, String late, String cd_ko_nm, String work_time, String work_hour) {
 		this.emp_no = emp_no;
 		this.emp_id = emp_id;
 		this.ko_nm = ko_nm;
@@ -31,19 +32,29 @@ public class OnOffVo {
 		this.late = late;
 		this.cd_ko_nm = cd_ko_nm;
 		this.work_time = work_time;
+		this.work_hour = work_hour;
 	}
 		
+	
+
+	public String getWork_hour() {
+		return work_hour;
+	}
+
+	public void setWork_hour(String work_hour) {
+		this.work_hour = work_hour;
+	}
 
 	public String getWork_time() {
 		
-		String work = "";
+//		String work = "";
+//		
+//		if(work_time.startsWith("0") == true) {
+//			work = work_time.substring(1, work_time.length());
+//			
+//		}
 		
-		if(work_time.startsWith("0") == true) {
-			work = work_time.substring(1, work_time.length());
-			
-		}
-		
-		return work;	
+		return work_time;	
 	}
 
 	public void setWork_time(String work_time) {
@@ -143,8 +154,10 @@ public class OnOffVo {
 		return "OnOffVo [emp_no=" + emp_no + ", emp_id=" + emp_id + ", ko_nm=" + ko_nm + ", eg_nm=" + eg_nm
 				+ ", dept_nm=" + dept_nm + ", day=" + day + ", date=" + date + ", attend_time=" + attend_time
 				+ ", offwork_time=" + offwork_time + ", late=" + late + ", cd_ko_nm=" + cd_ko_nm + ", work_time="
-				+ work_time + "]";
+				+ work_time + ", work_hour=" + work_hour + "]";
 	}
+
+	
 
 	
 

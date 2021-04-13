@@ -67,9 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
      //상세정보 
     eventClick: function(arg) {
     $("#scd_no").val(arg.event._def.groupId);
-//     alert(arg.event._def.groupId);
     window.open("${cp}/scd/calendarView?scd_no="+arg.event._def.groupId, "PopupWin", "width=1000,height=900");
-//     $("#frmView").submit();
     },
 	 
     editable: true,
@@ -88,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    		   backgroundColor: '#538997',
 	    		  </c:when>
 	    		<c:otherwise>
-	    		   backgroundColor: '#C165EA',
+	    		   backgroundColor: '#D165AA',
 	    		</c:otherwise>
 	    		</c:choose>
 	    		start: '<fmt:formatDate value="${scd.s_dt}" pattern="yyyy-MM-dd"/>',
@@ -137,19 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 <style>
-/* .popper, .tooltip { */
-/* 	text-align: left; */
-/* 	position: absolute; */
-/* 	z-index: 9999; */
-/* 	background: #FFC107; */
-/* 	color: black; */
-/* 	width: 150px; */
-/* 	border-radius: 3px; */
-/* 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); */
-/* 	padding: 10px; */
-/* 	display: none; */
-/* } */
-
 body {
 	padding: 0;
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;

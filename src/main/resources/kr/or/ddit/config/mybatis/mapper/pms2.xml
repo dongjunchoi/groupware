@@ -109,7 +109,7 @@
 		<!-- 프로젝트 리스트 총 행 수 -->
 	<select id="PmsAllCnt" resultType="int">
 		SELECT count(*)
-		FROM pms 
+		FROM pms
 	</select>
 	
 	<!-- 진행중인 프로젝트 조회 - 사원  -->
@@ -145,7 +145,9 @@
 	
 	<!-- 일감 리스트 조회 -->
 	<select id="workAllList" parameterType="map" resultType="pmsVo">
-	 SELECT LPAD((' '), 8*(LEVEL-1)) || work_nm work_nm,
+	 SELECT *
+	 FROM
+	 (SELECT LPAD((' '), 8*(LEVEL-1)) || work_nm work_nm,
 		    work_no,
 		    higher_work_no,
 		    cont,
@@ -160,7 +162,8 @@
 		    pms_no,
 		    attend_emp_no, 
 		    ko_nm,
-		    LEVEL workLevel
+		    LEVEL workLevel,
+		    ROWNUM rn
 			FROM
 			    (SELECT ROWNUM rn, a.*
 			     FROM
@@ -183,13 +186,14 @@
 		                FROM
 		                    work w
 			          WHERE pms_no = #{pms_no} AND (sta_cd = 606 OR sta_cd = 605)
-			          ORDER BY work_no DESC
+			          ORDER BY work_no DESC, higher_work_no DESC
 			          ) a
 			     )
-			WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+			
 			START WITH HIGHER_WORK_NO IS NULL 
 		    CONNECT BY PRIOR WORK_NO = HIGHER_WORK_NO
-		    ORDER SIBLINGS BY E_DT ASC
+		    ORDER SIBLINGS BY E_DT  DESC)
+		    WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 	</select>
 	
 	<!-- 일감 리스트 총 행 수 -->
@@ -197,6 +201,7 @@
 		SELECT count(*)
 		FROM work 
 		WHERE pms_no = #{pms_no}
+		AND sta_cd NOT IN (607)
 	</select>
 	
 	<!-- 일감 상세정보 -->

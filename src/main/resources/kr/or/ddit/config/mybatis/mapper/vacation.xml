@@ -483,7 +483,7 @@
 		(SELECT e.emp_no emp_no, (v.e_dt - v.s_dt) + 1 used_vac, vac_cnt   
 		FROM emp e, vacation v 
 		WHERE e.emp_no = v.emp_no(+)
-        AND v.emp_no = #{emp_no}) 
+        AND e.emp_no = #{emp_no}) 
 		GROUP BY emp_no, vac_cnt
 	</select>
 

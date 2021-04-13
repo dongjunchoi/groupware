@@ -25,21 +25,16 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.groupware.model.BoardVo;
@@ -128,7 +123,8 @@ public class EmpController {
 			if(dbUser.getPer_info_agr_cd() == 140) {
 				return "admin/personalInformation";
 			}else {
-				return "redirect:/test/main?emp_no="+dbUser.getEmp_no();
+				ra.addAttribute("emp_no", dbUser.getEmp_no());
+				return "redirect:/test/main";
 			}
 			
 		}else {	
@@ -154,6 +150,9 @@ public class EmpController {
 	public String AgreeModify(Model model, int emp_no) {
 		int agreeCnt = 0;
 		
+		logger.debug("AgreeModify() ================= ");
+		logger.debug("emp_no : {}", emp_no);
+		
 		try {
 			agreeCnt = empService.agreeModify(emp_no);
 		} catch (Exception e) {
@@ -162,11 +161,11 @@ public class EmpController {
 		}
 		
 		if(agreeCnt == 1) {
-			return "redirect:/test/main";
+			return "redirect:/test/main?emp_no=" + emp_no;
 		}else {
 			return "redirect:/empController/loginProcess";
 		}
-	
+		
 	}
 	 
 	//인사정보 리스트 , chart api
@@ -676,41 +675,8 @@ public class EmpController {
 			model.addAttribute("attendCnt", 1);
 		}
 		
-		// 바 그래프 데이터
-		List<OnOffVo> OnOffDataList = onoffService.selectOnOffData(emp_no);
-		
-		if(OnOffDataList.size() == 5) {
-			
-			model.addAttribute("first", OnOffDataList.get(0));
-			model.addAttribute("second", OnOffDataList.get(1));
-			model.addAttribute("third", OnOffDataList.get(2));
-			model.addAttribute("forth", OnOffDataList.get(3));
-			model.addAttribute("fifth", OnOffDataList.get(4));
-			
-		}else{
-			for(int i = 0; i < OnOffDataList.size(); i++) {
-				if(i == 0) {
-					model.addAttribute("first", OnOffDataList.get(0));
-				} 
-				
-				if(i == 1) {
-					model.addAttribute("second", OnOffDataList.get(1));
-				}
-				
-				if(i == 2) {
-					model.addAttribute("third", OnOffDataList.get(2));
-				}
-				
-				if(i == 3) {
-					model.addAttribute("forth", OnOffDataList.get(3));
-				}
-				
-			}
-		}
-		
-	
-		// 데이터 끝
-		
+		// Bar Graph Data
+		model.addAttribute("OnOffDataList", onoffService.selectOnOffData(emp_no));
 		model.addAttribute("workStatus", onoffService.selectWorkStatus());
 		model.addAttribute("emp_no", emp_no);
 		model.addAttribute("emp_id", emp_id);
@@ -871,7 +837,7 @@ public class EmpController {
 			model.addAttribute("attendCnt", 1);
 		}
 		
-		
+		 
 	
 		return "ajax/pagingOnOffAjaxHtml";
 	}
@@ -879,7 +845,7 @@ public class EmpController {
 	// 근태 상세조회 
 	@RequestMapping("onoffDetail")
     public String OnOffDetail(String emp_id, int emp_no, Model model) {
-		
+		 
 		logger.debug("OnOffDetail() ==================== ");
 		
 		PageVo pageVo = new PageVo(1, 10);
@@ -892,12 +858,13 @@ public class EmpController {
 		map1.put("pageSize", 10);
 		
 		Map<String, Object> map = onoffService.selectOnOffDetailPaging(map1);
-		List<OnOffVo> ononffdetaillist = (List<OnOffVo>)map.get("onoffDetaillist");
 		
 		int pagination = (int)map.get("pagination1");
 
+		// Bar Graph Data
+		model.addAttribute("OnOffDataList", onoffService.selectOnOffData(emp_no));
 		model.addAttribute("onoffVo", onoffService.selectonoff(emp_no));
-		model.addAttribute("onoffDetaillist", ononffdetaillist); 
+		model.addAttribute("onoffDetaillist", (List<OnOffVo>)map.get("onoffDetaillist")); 
 		model.addAttribute("pageVo1", pageVo);
 		model.addAttribute("pagination1", pagination);
 		model.addAttribute("emp_no", emp_no);
@@ -1112,3 +1079,4 @@ public class EmpController {
 	
 	
 }
+ 

@@ -63,7 +63,7 @@
 	<input type="hidden" name="e_dt" value="${workVo.e_dt}"/>
 	<input type="hidden" name="work_nm" value="${workVo.work_nm}"/>
 	<input type="hidden" name="work_no" value="${workVo.work_no}"/>
-	<input type="hidden" name="cont" value="${workVo.cont}"/>
+	<input type="hidden" name="cont" value='${workVo.cont}'/>
 	<input type="hidden" name="prog" value="${workVo.prog}"/>
 	<input type="hidden" name="est_time" value="${workVo.est_time}"/>
 	<input type="hidden" name="pri_order" value="${workVo.pri_order}"/>

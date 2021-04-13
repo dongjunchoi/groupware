@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-
+ 
   <typeAliases>
   	<typeAlias type="kr.or.ddit.common.model.PageVo" alias="pageVo" />
   	

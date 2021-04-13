@@ -29,7 +29,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">일감 등록페이지</h3>
 		</div>
-		<div class="panel-body" style="display: block; height: 800px; min-width: 500px;">
+		<div class="panel-body" style="display: block; min-height: 900px; min-width: 500px;">
 			<form action="/pms/registPms" method="post" id="frm" enctype="multipart/form-data"
 				class="form-horizontal form-border">
 				<div class="form-group">
@@ -103,8 +103,8 @@
 					<input type="hidden" id="pageSize" name="pageSize" value="5">
 					<input type="hidden" id="work_no" name="work_no" value="0">
 					<input type="hidden" id="higher_work_no" name="higher_work_no" value="0">
-				</div>
 					<input type="submit" id="submit" class="btn btn-success btn-square" value="저장"/>
+				</div>
 			</form>
 		</div>
 	</div>

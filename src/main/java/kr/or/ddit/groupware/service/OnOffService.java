@@ -178,7 +178,7 @@ public class OnOffService implements OnOffServiceI{
 		
 		return dao.searchDetailPagingCnt(map);
 	}
-
+	
 	@Override
 	public List<OnOffVo> selectOnOffData(int emp_no) {
 		

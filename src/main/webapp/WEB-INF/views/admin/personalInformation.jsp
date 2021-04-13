@@ -13,7 +13,7 @@
  		})
  		
  		$('#cancelBtn').on('click',function(){
- 			location.href="${cp}/empController/logout";
+ 			location.href="${cp}/empController/logout?emp_no=" + ${S_USER.emp_no};
  		})
  	})
  </script>

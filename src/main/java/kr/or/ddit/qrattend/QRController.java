@@ -84,6 +84,16 @@ public class QRController {
 
 	}
 	
+	@RequestMapping("QRdclz")
+	public String QRdclz(Model model) {
+		
+		String url = "http:192.168.0.119/QR/QRattend";
+		
+		model.addAttribute("url", url);
+		
+		return "QR/QRDCLZ";
+	}
+	
 	// QR 출석체크 프로세스
 	@RequestMapping("QRattend")
 	public String doattend(String emp_no, HttpServletRequest req,  Model model) {
@@ -162,15 +172,6 @@ public class QRController {
 		
 	}
 	
-	@RequestMapping("QRdclz")
-	public String QRdclz(Model model) {
-		
-		String url = "http:192.168.0.119/QR/QRattend";
-		
-		model.addAttribute("url", url);
-		
-		return "QR/QRDCLZ";
-	}
 	
 	@RequestMapping("CreateQRCode")
 	public ModelAndView CreateQR(String content, Model model) {

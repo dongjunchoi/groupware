@@ -10,7 +10,7 @@
 			<tr class="odd empinfo" style="cursor:pointer"
 			onClick="window.open('/vacController/vacDetail?emp_no=${vac.emp_no}&emp_id=${vac.emp_id }','연차 상세조회',
 			'width=1100, height=950, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
-				<td>${vac.ko_nm} ${vac.cd_ko_nm }</td>
+				<td>${vac.ko_nm}</td>
 				<td>${vac.emp_id}</td>
 				<td>${vac.dept_nm}</td>
 				<td>${vac.hire_dt}</td>
@@ -27,7 +27,7 @@
 		<c:forEach items="${vacDetlist}" var="vac" begin="0">
 				<tr class="odd empinfo">
 				
-				<td>${vac.ko_nm} ${vac.cd_ko_nm }</td>
+				<td>${vac.ko_nm}</td>
 				<td>${vac.emp_id}</td>
 				<td>${vac.dept_nm}</td>
 				<td>${vac.hire_dt}</td>

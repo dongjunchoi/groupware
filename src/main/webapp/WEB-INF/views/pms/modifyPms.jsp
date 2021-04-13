@@ -28,10 +28,9 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">일감 수정페이지</h3>
 			<div class="actions pull-right">
-				<i class="fa fa-chevron-down"></i> <i class="fa fa-times"></i>
 			</div>
 		</div>
-		<div class="panel-body" style="display: block; height: 800px; min-width: 500px;">
+		<div class="panel-body" style="display: block; min-height: 900px; min-width: 500px;">
 			<form action="/pms/modifyPms" method="post" id="frm"  enctype="multipart/form-data"
 				class="form-horizontal form-border">
 				<div class="form-group">
@@ -57,7 +56,7 @@
 					<label class="col-sm-3 control-label">시작일자</label>
 					<div class="col-sm-2">
 						<input type="date" id="s_dt" name="s_dt" 
-						value='<fmt:formatDate value="${workVo.e_dt}" pattern="yyyy-MM-dd"/>' class="form-control">
+						value='<fmt:formatDate value="${workVo.s_dt}" pattern="yyyy-MM-dd"/>' class="form-control">
 					</div>
 					<label class="col-sm-1 control-label">종료일자</label>
 					<div class="col-sm-2">

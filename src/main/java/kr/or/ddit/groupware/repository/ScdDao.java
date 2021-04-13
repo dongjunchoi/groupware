@@ -77,4 +77,10 @@ public class ScdDao implements ScdDaoI {
 		return template.selectList("scd.selectScdDivVo");
 	}
 
+	@Override
+	public List<ScdVo> selectMainScd(ScdVo scdVo) {
+		// TODO Auto-generated method stub
+		return template.selectList("scd.selectMainScd", scdVo);
+	}
+
 }

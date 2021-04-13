@@ -187,6 +187,7 @@
 			var sal = $('#sal').val().trim();			//급여
 			var serve_cd = $('#serve_cd').val();		//재직
 			var po_cd = $('#po_cd').val();				//직급
+			
 // 			if(empid=="" || pass == "" || pass2 == "" || dept_no == ""
 // 				|| ko_nm == "" || eg_nm == "" || birth == "" || per_pn == ""
 // 				|| zipcode == "" || addr1 == "" || addr2 == "" || hire_dt == ""
@@ -194,6 +195,7 @@
 // 				alert('필수항목 *에 대해서 입력해주세요');
 // 				return false;
 // 			}
+			
 			if(empid == ""){
 				alert('필수항목 사원id를 입력해주세요');
 				return false;

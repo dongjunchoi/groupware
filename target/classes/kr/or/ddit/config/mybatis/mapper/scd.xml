@@ -112,5 +112,18 @@
 	 FROM scd_div
 	 ORDER BY scd_div_no
 	</select>
- 
+	
+	<!-- 메인페이지 오늘 일정 조회 -->
+	<select id="selectMainScd" parameterType="scdVo" resultType="scdVo">
+		SELECT scd_no, s_dt, e_dt, title, cont, emp_no,dept_no, scd_div_no, scd_div_nm, ko_nm,cd_ko_nm
+		FROM  
+		    (SELECT scd_no, s_dt, e_dt, title, cont, emp_no, dept_no, scd_div_no,
+		        (SELECT scd_div_nm from scd_div WHERE scd.scd_div_no = scd_div_no) scd_div_nm,
+		        (SELECT ko_nm from emp WHERE scd.emp_no = emp_no) ko_nm,
+		        (SELECT cd_ko_nm from comm_cd WHERE scd.sta_cd = comm_no) cd_ko_nm,
+		        (SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') FROM DUAL)today
+		     FROM scd)
+		WHERE today >=s_dt AND e_dt > today
+		AND (emp_no = #{emp_no} OR (dept_no = #{dept_no} AND scd_div_no = #{scd_div_no}))
+	</select>
 </mapper>

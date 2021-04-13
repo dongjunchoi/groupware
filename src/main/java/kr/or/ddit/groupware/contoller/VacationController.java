@@ -113,68 +113,66 @@ public class VacationController {
 		logger.debug("data1 : {}, data2 : {}", data1, data2);
 		
 		PageVo pageVo = new PageVo(page, pageSize);
-		
 
+		// 기본 페이징 맵 param
+		Map<String, Object> mapParam = new HashMap<>();
+		mapParam.put("page", page);
+		mapParam.put("pageSize", pageSize);
 			
-			// 기본 페이징 맵 param
-			Map<String, Object> mapParam = new HashMap<>();
-			mapParam.put("page", page);
-			mapParam.put("pageSize", pageSize);
 			
+		Map<String, Object> map = new HashMap<>();
 			
-			Map<String, Object> map = new HashMap<>();
+		Map<String, Object> mapmap = new HashMap<>();
+		mapmap.put("page", page);
+		mapmap.put("pageSize", pageSize);
+		mapmap.put("emp_no", emp_no);
 			
-			Map<String, Object> mapmap = new HashMap<>();
-			mapmap.put("page", page);
-			mapmap.put("pageSize", pageSize);
-			mapmap.put("emp_no", emp_no);
+		if(emp_no == 0) {
+			map = vacService.selectVacInfoPaging(mapParam);
+			model.addAllAttributes(map);				
+		}else {
+			map = vacService.selectDetVacInfoPaging(mapmap);
+			model.addAllAttributes(map);
+		}
+		
+		// 검색 페이징 맵 카운트
+		Map<String, Object> map1 = new HashMap<>();
+		map1.put("page", page);
+		map1.put("pageSize", pageSize);
+		
+		if(data1 == null || data1.equals("")) {
+			map1.put("data1", datas1);
+		}else {
+			map1.put("data1", "%" + data1 + "%");
+		}
+		
+		if(data2 == null || data2.equals("")) {
+			map1.put("data2", datas2);
+		}else {
+			map1.put("data2","%" + data2 + "%");			
+		}
 			
-			if(emp_no == 0) {
-				map = vacService.selectVacInfoPaging(mapParam);
-				model.addAllAttributes(map);				
-			}else {
-				map = vacService.selectDetVacInfoPaging(mapmap);
-				model.addAllAttributes(map);
-			}
-			
-			// 검색 페이징 맵 카운트
-			Map<String, Object> map1 = new HashMap<>();
-			map1.put("page", page);
-			map1.put("pageSize", pageSize);
-			
-			if(data1 == null || data1.equals("")) {
-				map1.put("data1", datas1);
-			}else {
-				map1.put("data1", "%" + data1 + "%");
-			}
-			
-			if(data2 == null || data2.equals("")) {
-				map1.put("data2", datas2);
-			}else {
-				map1.put("data2","%" + data2 + "%");			
-			}
-			
-			// 날짜
-			if(date1 == null || date1.equals("") && date2 == null || date2.equals("")) {
-				map1.put("date1", "19700101");
-				map1.put("date2", today1);
-			}else {
-				map1.put("date1", date11);
-				map1.put("date2", date22);
-			}
-			
-			Map<String, Object> searchMap = vacService.searchempVacPaging(map1);
-			
-			List<VacationVo> vacationList = (List<VacationVo>)searchMap.get("vaclist");
-			
-			model.addAttribute("vaclist", vacationList);
-			
-			int pagination = (int)searchMap.get("pagination");			
-			model.addAttribute("pagination", pagination);
-			model.addAttribute("pageVo", pageVo);
-			
-			model.addAttribute("data1", data1);
-			model.addAttribute("data2", date2);
+		// 날짜
+		if(date1 == null || date1.equals("") && date2 == null || date2.equals("")) {
+			map1.put("date1", "19700101");
+			map1.put("date2", today1);
+		}else {
+			map1.put("date1", date11);
+			map1.put("date2", date22);
+		}
+		
+		Map<String, Object> searchMap = vacService.searchempVacPaging(map1);
+		
+		List<VacationVo> vacationList = (List<VacationVo>)searchMap.get("vaclist");
+		
+		model.addAttribute("vaclist", vacationList);
+		
+		int pagination = (int)searchMap.get("pagination");			
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("pageVo", pageVo);
+		
+		model.addAttribute("data1", data1);
+		model.addAttribute("data2", date2);
 	
 		return "ajax/pagingVacAjaxHtml";
 	}
@@ -198,7 +196,7 @@ public class VacationController {
 			model.addAttribute("offTime", onVo.getOffwork_time());
 			model.addAttribute("workTime", onVo1.getAttend_time());
 		} catch (Exception e) {
-			model.addAttribute("hi", "-");
+			e.printStackTrace();
 		}
 		
 		if(attendCnt == 0) {
@@ -383,10 +381,7 @@ public class VacationController {
 			mapmap.put("date2", date22);
 		}
 		
-//		Map<String, Object> searchMap2 = vacService.vacationDetStaPaging(mapParam);
-//		model.addAllAttributes(searchMap2);
 		Map<String, Object> searchMap3 = vacService.searchDetStaPaging(mapmap);
-//		model.addAllAttributes(searchMap2);
 		model.addAllAttributes(searchMap3);
 		
 		return "ajax/vacDetailStatusAjaxHtml";
@@ -396,16 +391,12 @@ public class VacationController {
 	@RequestMapping("vaclistExcel")
 	public void empVacation(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) 
 			throws Exception, Exception {
-		
-		// 그냥 평소에 마이바티스에서 데이터 뽑는 방법으로 데이터를 가져온다.
-//		vacService.select
+
 		List<VacationVo> vacList = vacService.selectVacList();
 
-		// 받은 데이터를 맵에 담는다.
 		Map<String, Object> beans = new HashMap<String, Object>();
 		beans.put("AllvacList", vacList);
 
-		// 엑셀 다운로드 메소드가 담겨 있는 객체
 		EmpController me = new EmpController();
 
 		me.download(request, response, beans, "AllvacList", "VacTemplate.xlsx", "");
@@ -416,8 +407,7 @@ public class VacationController {
 	@RequestMapping("vacUsedlistExcel")
 	public void vacUsedlistExcel(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) 
 			throws Exception, Exception {
-		
-		// 그냥 평소에 마이바티스에서 데이터 뽑는 방법으로 데이터를 가져온다.
+	
 		List<VacationVo> vacUsedList = vacService.selectUsedVacList();
 
 		// 받은 데이터를 맵에 담는다.
@@ -439,10 +429,8 @@ public class VacationController {
 		logger.debug("연차 사용내역 상세조회 엑셀 다운 ==== ");
 		logger.debug("emp_no : {}", emp_no);
 		
-		// 그냥 평소에 마이바티스에서 데이터 뽑는 방법으로 데이터를 가져온다.
 		List<VacationVo> vacDetUsedList = vacService.selectDetvacUsedList(emp_no);
 	
-		// 받은 데이터를 맵에 담는다.
 		Map<String, Object> beans = new HashMap<String, Object>();
 		beans.put("vacDetUsedList", vacDetUsedList);
 

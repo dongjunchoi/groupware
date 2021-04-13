@@ -246,7 +246,7 @@ private static final Logger logger = LoggerFactory.getLogger(BoardController.cla
 	}
 	
 	@RequestMapping(path = "postListView", method = RequestMethod.GET)
-	public String postListView(PageVo pageVo,int bor_no, Model model) {
+	public String postListView(PageVo pageVo, int bor_no, Model model) {
 		
 		Map<String, Object> map = boardService.postListView(pageVo);
 //		List<BoardVo> board = boardService.selectBoard();

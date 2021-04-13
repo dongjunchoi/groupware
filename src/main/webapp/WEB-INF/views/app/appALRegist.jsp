@@ -62,8 +62,7 @@
 				var total_cnt = Math.ceil((edt.getTime()-sdt.getTime())/(1000*3600*24)) + 1;
 				
 				var vac_cnt =  ${empInfo.vac_cnt};
-				alert(total_cnt);
-				alert(vac_cnt);
+
 				if(total_cnt > vac_cnt){
 					alert("잔여연차를 초과하였습니다.");
 					return false;

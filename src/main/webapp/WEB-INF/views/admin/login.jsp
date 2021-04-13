@@ -36,13 +36,14 @@
     <script src="${cp}/assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
-                              
+                                  
 <body class="animated fadeIn">
-	<img alt="로그인" style=" width: 50%; height: 1000px; float: left;" src="${cp}/image/login.jpeg">
-    <section id="login-container">
+	<img alt="로그인" style=" width: 50%; height: 940px; float: left;" src="${cp}/image/login.jpeg">
+<%-- 	<img alt="로그인" style=" width: 200px; height: 100px; " src="${cp}/image/logo.jpg"> --%>
+    <section id="login-container" >
 		
         <div class="row">
-            <div class="col-md-3" id="login-wrapper">
+            <div class="col-md-3" id="login-wrapper" style="position: absolute; left: 1200px; top: 200px;">
                 <div class="panel panel-primary animated flipInY">
                     <div class="panel-heading">
                         <h3 class="panel-title">     
@@ -55,7 +56,7 @@
                         <form action="${cp}/empController/loginProcess" method="post" class="form-horizontal" role="form">
                             <div class="form-group">
                                 <div class="col-md-12">
-	                                <input type="text" class="form-control" id="email" name="emp_id" value="ksj0926" placeholder="아이디를입력해주세요.">
+	                                <input type="text" class="form-control" id="email" name="emp_id" value="kby0210" placeholder="아이디를입력해주세요.">
 <!--                                     <input type="text" class="form-control" id="emp_id" name="emp_id" placeholder="empid"> -->
                                     <i class="fa fa-user"></i>
                                 </div>

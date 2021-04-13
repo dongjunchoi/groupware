@@ -91,8 +91,6 @@
               $("#img").attr("src", url+"?content="+content);
 
       });
-
-	
 </script>
 
 <body class="animated fadeIn">

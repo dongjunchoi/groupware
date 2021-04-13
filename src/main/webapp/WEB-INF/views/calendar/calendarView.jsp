@@ -36,6 +36,12 @@
 			$("#frm").attr("action","${cp}/scd/modifyCalendarForm");
 			$("#frm").submit();
 		});	
+		
+		$("#closeBtn").on("click", function() {
+			opener.parent.location.reload();
+// 			$(opener.document).location.reload();
+			window.self.close();
+		})
 		$("#deleteBtn").on("click",function(){
 			var flag = confirm("해당 일정을 삭제하겠습니까?");
 			if (flag) {
@@ -55,15 +61,16 @@
 						}
 					}	
 				});
-// 				$("#emp_no").val(emp_no);
-// 				$("#frm").attr("method","post");
-// 				$("#frm").attr("action","${cp}/scd/deleteCalendar");
-// 				$("#frm").submit();
-				// sucess  
 			}else{
 				return ;
 			}
-		});	
+		});
+		
+		
+		function reload(){
+		    window.opener.location.reload();
+		    window.close();
+		}
 	})
 </script>
 <style>
@@ -79,11 +86,6 @@
  	text-align: right; 
  	padding-right: 10%; 
 	
-}
-.tablWrap{
-/* 	min-width: 50%; */
-/* 	max-height: 50px; */
-/* 	display : inline-block; */
 }
 </style>
 <meta charset='utf-8' />
@@ -182,15 +184,14 @@
 					</table>
 				</div>
 				<hr>
-							<div class="tAr pT10">
-								<input type="hidden" id="emp_no" name="emp_no" value="${S_USER.emp_no }">
-								<input type="button" id="modifyBtn"  class="btn btn-primary btn-square" value="수정">
-								<input type="button" id="deleteBtn" data-emp_no="${S_USER.emp_no }" class="btn btn-primary btn-square" value="삭제">
-								<input type="button"  onClick="window.close()" class="btn btn-primary btn-square" value="닫기">
-							</div>
+				<div class="tAr pT10">
+					<input type="hidden" id="emp_no" name="emp_no" value="${S_USER.emp_no }">
+					<input type="button" id="modifyBtn"  class="btn btn-primary btn-square" value="수정">
+					<input type="button" id="deleteBtn" data-emp_no="${S_USER.emp_no }" class="btn btn-primary btn-square" value="삭제">
+<!-- 					<input type="button" class="btn btn-primary btn-square" value="닫기" onclick="window.close();" /> -->
+					<input type="button" id ="closeBtn" class="btn btn-primary btn-square" value="닫기"/>
+				</div>
 			</div>
-		
-		
 		</div>
 	</div>
 </div>

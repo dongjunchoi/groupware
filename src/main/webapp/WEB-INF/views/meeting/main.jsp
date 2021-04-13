@@ -9,7 +9,7 @@
 	})	 
 	 
 	$(".joinMeeting").on("click", function() {
-		var win = window.open("https://192.168.0.121:44300/room/asas", "PopupWin", "width=1600,height=900");
+		var win = window.open("https://192.168.0.135:44300/room/asas", "PopupWin", "width=1600,height=900");
 // 		location.href = "https://192.168.0.122:44300/room/asas";
 	})
 	$(".closeMeeting").on("click", function() {

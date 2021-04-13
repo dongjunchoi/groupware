@@ -6,7 +6,7 @@
 
 		<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">상세정보</h3>
+					<h3 class="panel-title">개인정보수정</h3>
 					
 				</div>
 				

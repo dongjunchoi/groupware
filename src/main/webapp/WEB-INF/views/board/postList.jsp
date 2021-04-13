@@ -170,24 +170,24 @@
 					<ul class="pagination">
 		
 					
-						<li class="paginate_button previous disabled"
+						<li class="paginate_button previous"
 							aria-controls="example" tabindex="0" id="example_previous"><a
-							href="#">Previous</a></li>
+							href="${cp }/board/postListView?page=1&pageSize=15&bor_no=${bor_no}">Previous</a></li>
 						<c:forEach begin="1" end="${pagination}" var="i">
 						<c:choose>
 							<c:when test="${pageVo.page==i}">
 								<li class="paginate_button active" aria-controls="example"
-									tabindex="0"><a href="#">${i}</a></li>
+									tabindex="0"><a href="${cp }/board/postListView?page=${pageVo.page }&pageSize=${pageSize}&bor_no=${bor_no}">${i}</a></li>
 							</c:when>
 							 <c:otherwise>
 								<li class="paginate_button " aria-controls="example" tabindex="0"><a
-									href="${cp}/board/postListView?page=${i}&pageSize=${pageVo.pageSize}&bor_no=${pageVo.bor_no}">${i}</a></li>
+									href="${cp}/board/postListView?page=${i}&pageSize=${pageVo.pageSize}&bor_no=${bor_no}">${i}</a></li>
 							</c:otherwise> 
 						</c:choose>
 						
 						</c:forEach>
 						<li class="paginate_button next" aria-controls="example"
-							tabindex="0" id="example_next"><a href="#">Next</a></li>
+							tabindex="0" id="example_next"><a href="${cp }/board/postListView?page=${pagination}&pageSize=15&bor_no=${bor_no}">Next</a></li>
 						
 					</ul>
 					</div>

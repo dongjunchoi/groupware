@@ -507,9 +507,15 @@
 										<div class="vacinfo" style="width : 300px; float: left; margin-left : 95px; text-align:center;">
 										
 											<label>총 연차 </label><br>
-											<label style="font-size:40px; margin-right:5px;">${vacVo.total_vac }</label>
-											
-												
+												<c:choose>
+													<c:when test="${vacVo.total_vac == 0 }">
+														<label style="font-size:40px; margin-right:5px;">${vacVo.total_mon_vac }</label>
+													</c:when>
+													<c:otherwise>
+														<label style="font-size:40px; margin-right:5px;">${vacVo.total_vac }</label>
+													</c:otherwise>
+												</c:choose>
+														
 										</div>
 										
 										<div class="vl"></div>
@@ -519,8 +525,7 @@
 										
 											<label>사용 연차 </label><br> 
 											<label style="font-size:40px;">${vacVo.used_vac }</label>
-												
-												
+														
 										</div>
 										
 										<div class="vl"></div>
@@ -553,7 +558,7 @@
 							</c:choose>
 						</div>
 			
-						<div class="panel-body" style="height: 640px;">
+						<div class="panel-body" style="height: 648px;">
 							<div class="panel-body">
 								<div role="grid" id="example_wrapper"
 									class="dataTables_wrapper form-inline no-footer">

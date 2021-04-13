@@ -1331,10 +1331,10 @@ socket.on('communication error2', (roomNos) => {
 	const roomsArr = roomNos.split(",");
 	let htmlCode = "";
 	$.each(roomsArr, function(i,v){
-		htmlCode += "<a href='https://192.168.0.121:44300/room/"+ v + "'>" + i + "</a><br>";
+		htmlCode += "<a href='https://192.168.0.135:44300/room/"+ v + "'>" + i + "</a><br>";
 	});
 	console.log(htmlCode);
-    //window.location.assign("https://192.168.0.121:44300/room/" + joninNo);
+    //window.location.assign("https://192.168.0.135:44300/room/" + joninNo);
     $("#roomList").html(htmlCode);
     $('#roomsModal').modal('show');
 })

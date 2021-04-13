@@ -38,4 +38,7 @@ public interface ScdServiceI {
 	
 	/*일정 구분*/
 	List<ScdVo> selectScdDivVo();
+	
+	//메인 일정 리스트 조회 
+	List<ScdVo> selectMainScd(ScdVo scdVo);
 }

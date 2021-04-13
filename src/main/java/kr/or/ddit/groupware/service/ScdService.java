@@ -110,5 +110,11 @@ private static final Logger logger = LoggerFactory.getLogger(ScdService.class);
 		return scdDao.selectScdDivVo();
 	}
 
+	@Override
+	public List<ScdVo> selectMainScd(ScdVo scdVo) {
+		// TODO Auto-generated method stub
+		return scdDao.selectMainScd(scdVo);
+	}
+
 
 }
